@@ -5,17 +5,22 @@ import BarraNavegacao from "./components/BarraNavegacao";
 import MensagemErro from "./components/MensagemErro";
 import PaginaInicial from "./pages/PaginaInicial";
 import PaginaListagem from "./pages/PaginaListagem";
+import PaginaListagemProfessores from "./pages/PaginaListagemProfessores";
 import PaginaCadastro from "./pages/PaginaCadastro";
+import PaginaCadastroProfessor from "./pages/PaginaCadastroProfessor";
 import { listarAlunos, criarAluno, excluirAluno } from "./services/alunoService";
+import { listarProfessores, criarProfessor, excluirProfessor } from "./services/professorService";
 
 const mensagemConexao = "Não foi possível conectar à API. Você esqueceu de iniciar o json-server? Rode: npx json-server --watch db.json --port 3000";
 
 function App() {
   const [alunos, setAlunos] = useState([]);
+  const [professores, setProfessores] = useState([]);
   const [erro, setErro] = useState("");
 
   useEffect(function () {
     carregarAlunos();
+    carregarProfessores();
   }, []);
 
   async function carregarAlunos() {
@@ -28,7 +33,17 @@ function App() {
     }
   }
 
-  async function aoSalvar(aluno) {
+  async function carregarProfessores() {
+    try {
+      const dados = await listarProfessores();
+      setProfessores(dados);
+      setErro("");
+    } catch (e) {
+      setErro(mensagemConexao);
+    }
+  }
+
+  async function aoSalvarAluno(aluno) {
     try {
       await criarAluno(aluno);
       carregarAlunos();
@@ -37,10 +52,28 @@ function App() {
     }
   }
 
-  async function aoExcluir(id) {
+  async function aoSalvarProfessor(professor) {
+    try {
+      await criarProfessor(professor);
+      carregarProfessores();
+    } catch (e) {
+      setErro(mensagemConexao);
+    }
+  }
+
+  async function aoExcluirAluno(id) {
     try {
       await excluirAluno(id);
       carregarAlunos();
+    } catch (e) {
+      setErro(mensagemConexao);
+    }
+  }
+
+  async function aoExcluirProfessor(id) {
+    try {
+      await excluirProfessor(id);
+      carregarProfessores();
     } catch (e) {
       setErro(mensagemConexao);
     }
@@ -61,8 +94,10 @@ function App() {
       <MensagemErro mensagem={erro} />
       <Routes>
         <Route path="/" element={<PaginaInicial />} />
-        <Route path="/alunos" element={<PaginaListagem alunos={alunos} aoExcluir={aoExcluir} />} />
-        <Route path="/cadastro" element={<PaginaCadastro aoSalvar={aoSalvar} />} />
+        <Route path="/alunos" element={<PaginaListagem alunos={alunos} aoExcluir={aoExcluirAluno} />} />
+        <Route path="/cadastro" element={<PaginaCadastro aoSalvar={aoSalvarAluno} tipo="Cadastro de Aluno" />} />
+        <Route path="/professores" element={<PaginaListagemProfessores professores={professores} aoExcluir={aoExcluirProfessor} />} />
+        <Route path="/cadastro-professor" element={<PaginaCadastroProfessor aoSalvar={aoSalvarProfessor} tipo="Cadastro de Professor" />} />
       </Routes>
     </div>
   );

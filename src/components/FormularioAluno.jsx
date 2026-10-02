@@ -26,7 +26,7 @@ function FormularioAluno(props) {
   }
 
   return (
-    <form className="formulario-aluno" onSubmit={aoEnviar}>
+    <form className="formulario" onSubmit={aoEnviar}>
       <CampoTexto rotulo="Nome" valor={nome} aoAlterar={setNome} />
       <CampoTexto rotulo="Email" tipo="email" valor={email} aoAlterar={setEmail} />
       <CampoTexto rotulo="CPF" valor={cpf} aoAlterar={setCpf} />

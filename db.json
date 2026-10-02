@@ -8,5 +8,15 @@
       "data_nascimento": "2007-05-14",
       "endereco": "Rua das Flores, 123 - Pau dos Ferros/RN"
     }
+  ],
+  "professores": [
+    {
+      "id": 1,
+      "nome": "João Souza",
+      "email": "joao@email.com",
+      "cpf": "987.654.321-00",
+      "data_nascimento": "1980-03-22",
+      "endereco": "Rua das Palmeiras, 456 - Pau dos Ferros/RN"
+    }
   ]
 }

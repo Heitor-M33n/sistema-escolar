@@ -120,7 +120,7 @@ body {
 
 /* Formulário */
 
-.formulario-aluno {
+.formulario {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -180,7 +180,7 @@ body {
   gap: 16px;
 }
 
-.card-aluno {
+.card {
   background-color: #ffffff;
   border: 1px solid #dddddd;
   border-left: 4px solid #2e7d32;

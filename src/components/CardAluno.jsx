@@ -1,6 +1,6 @@
 function CardAluno(props) {
   return (
-    <div className="card-aluno">
+    <div className="card">
       <h3>{props.aluno.nome}</h3>
       <p>{props.aluno.email}</p>
       <p>CPF: {props.aluno.cpf}</p>
